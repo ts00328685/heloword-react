@@ -57,5 +57,5 @@ spec:
             name: ${APP_NAME}
             port:
               number: 80
-        path: /react/v${MAJOR_VERSION(/|$)(.*)
+        path: /react/v${MAJOR_VERSION}(/|$)(.*)
         pathType: Prefix
