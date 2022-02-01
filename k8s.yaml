@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: react-cal
+  name: react-cal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-cal
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: react-cal
+    spec:
+      containers:
+      - image: ts00328685/react-cal:0.0.2
+        name: react-cal
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: react-cal
+  name: react-cal-service
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: react-cal
+status:
+  loadBalancer: {}
+--- 
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  name: react-cal-ingress
+  namespace: default
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: react-cal-service
+            port:
+              number: 80
+        path: /react-cal(/|$)(.*)
+        pathType: Prefix
