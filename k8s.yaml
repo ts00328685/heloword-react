@@ -18,7 +18,7 @@ spec:
         app: react-cal
     spec:
       containers:
-      - image: ts00328685/react-cal:0.0.2
+      - image: ts00328685/react:1.MINOR_VERSION
         name: react-cal
         resources: {}
 status: {}
