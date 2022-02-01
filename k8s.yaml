@@ -3,23 +3,23 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: react-v1
-  name: react-v1
+    app: ${APP_NAME}
+  name: ${APP_NAME}
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: react-v1
+      app: ${APP_NAME}
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: react-v1
+        app: ${APP_NAME}
     spec:
       containers:
-      - image: ts00328685/heloword-react-v1:1.MINOR_VERSION
-        name: react-v1
+      - image: ts00328685/heloword-${APP_NAME}:${MAJOR_VERSION}.${MINOR_VERSION}
+        name: ${APP_NAME}
         resources: {}
 status: {}
 ---
@@ -28,15 +28,15 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: react-v1
-  name: react-v1-service
+    app: ${APP_NAME}
+  name: ${APP_NAME}-service-v${MAJOR_VERSION}
 spec:
   ports:
   - port: 80
     protocol: TCP
     targetPort: 80
   selector:
-    app: react-v1
+    app: ${APP_NAME}
 status:
   loadBalancer: {}
 --- 
@@ -45,7 +45,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-  name: react-v1-ingress-v1
+  name: ${APP_NAME}-ingress-v${}
   namespace: default
 spec:
   ingressClassName: nginx
@@ -54,8 +54,8 @@ spec:
       paths:
       - backend:
           service:
-            name: react-v1-service
+            name: ${APP_NAME}-service-${MAJOR_VERSION}
             port:
               number: 80
-        path: /react/v1(/|$)(.*)
+        path: /react/v${MAJOR_VERSION(/|$)(.*)
         pathType: Prefix
