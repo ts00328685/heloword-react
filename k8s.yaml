@@ -54,7 +54,7 @@ spec:
       paths:
       - backend:
           service:
-            name: ${APP_NAME}-service-${MAJOR_VERSION}
+            name: ${APP_NAME}-service
             port:
               number: 80
         path: /react/v${MAJOR_VERSION(/|$)(.*)
