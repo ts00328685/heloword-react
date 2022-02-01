@@ -29,7 +29,7 @@ metadata:
   creationTimestamp: null
   labels:
     app: ${APP_NAME}
-  name: ${APP_NAME}-service-v${MAJOR_VERSION}
+  name: ${APP_NAME}-service
 spec:
   ports:
   - port: 80
@@ -45,7 +45,7 @@ kind: Ingress
 metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-  name: ${APP_NAME}-ingress-v${}
+  name: ${APP_NAME}-ingress
   namespace: default
 spec:
   ingressClassName: nginx
